@@ -1,52 +1,63 @@
-import React, {useState} from 'react';
-import'./TodoComponent.css';
-function TodoComponent(){
-    const [tasks, setTasks]= useState([]); 
-    function addTask(){
-        const taskInput = document.getElementById("task");
-        if(taskInput.value.trim() !== ""){
-            alert("Task Added: " + taskInput.value);
-            setTasks(prevTasks => [...prevTasks, taskInput.value]);
+import React, { useState } from 'react';
+import './TodoComponent.css';
+import toast, { Toaster } from 'react-hot-toast';
+
+function TodoComponent() {
+    const [tasks, setTasks] = useState([]);
+    const [task, setTask] = useState("");
+
+    function addTask(e) {
+        e.preventDefault();
+        if (task.trim() !== "") {
+            setTasks(prevTasks => [...prevTasks, task]);
+            setTask("");
         }
-        else{
-            alert("Please enter a task.");
-        }
-        console.log(tasks);
-    }
-    function check(event){
-        const isChecked = event.target.checked;
-        if(isChecked){
-            alert("Task Completed");
+        else {
+            toast.error("Enter a task", { duration: 1000 });
         }
     }
-    function deleteTask(){
-        tasks.pop();
-        setTasks([...tasks]);   
+
+    const notify = (e) => {
+        if (!e.target.checked) return;
+        toast.success('Task Completed.', { duration: 1000 });
     }
-        
-    
-    return(
+
+    function deleteTask(index) {
+        const confirmDelete = window.confirm("Are you sure you want to delete this task?");
+        if (confirmDelete) {
+            setTasks(prev => prev.filter((_, i) => i !== index));
+        }
+    }
+
+
+    return (
+
         <div className='Todo_Container'>
-            
+
             <h2>To-Do List</h2>
-            <div className='input_Container'>
-            <input type="text" id="task" placeholder='Add a task..' />
-            <button onClick={addTask} >Add</button>
-            </div>
-            
+
+            <form action="" onSubmit={addTask} className='input_Container'>
+                <input type="text"
+                    id="task"
+                    value={task}
+                    placeholder='Add a task..'
+                    onChange={(e) => setTask(e.target.value)} />
+                <button type='Submit'>Add</button>
+            </form>
+
+
+
             <div className='taskList'>
-                <div className='list'>
-                    {tasks.map((tas,index)=><li key={index}>
-                        <input type='checkbox' 
-                            onChange={check}/>
+                {tasks.map((tas, index) =>
+                    <li key={index}>
+                        <input type='checkbox' onChange={notify} />
                         <span>{tas}</span>
                         <button className='delete_btn'
-                        onClick={deleteTask}>delete</button>
+                            onClick={() => deleteTask(index)}>delete</button>
                     </li>
-                    )} 
-                </div>
+                )}
             </div>
-                
+
         </div>
     )
 }
