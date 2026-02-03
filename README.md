@@ -4,7 +4,8 @@ This app allows users to add, delete, and manage daily tasks effortlessly.
 🚀 Live Demo
 
 The application is deployed on Netlify.
-👉 Live Link: `reactapp-to-do-list.netlify.app`
+
+👉 Live Link: [`https://todo-app02-react.netlify.app/`](https://todo-app02-react.netlify.app/)
 
 📌 Features
   ➕ Add new tasks
