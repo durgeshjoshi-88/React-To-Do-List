@@ -1,6 +1,6 @@
 import './App.css';
 import TodoComponent from './Components/TodoComponent';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
