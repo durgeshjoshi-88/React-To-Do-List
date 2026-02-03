@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './TodoComponent.css';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 function TodoComponent() {
     const [tasks, setTasks] = useState([]);
